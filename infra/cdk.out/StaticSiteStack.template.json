@@ -350,19 +350,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "StaticSiteStack/CloudfrontDist/Resource",
-    "cdk_nag": {
-     "rules_to_suppress": [
-      {
-       "reason": "Using default (.cloudfront.net) CFN cert",
-       "id": "AwsSolutions-CFR4"
-      },
-      {
-       "reason": "Not using WAF at this point",
-       "id": "AwsSolutions-CFR2"
-      }
-     ]
-    }
+    "aws:cdk:path": "StaticSiteStack/CloudfrontDist/Resource"
    }
   },
   "CDKMetadata": {

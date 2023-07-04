@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { StaticSiteStack } from '../lib/staticsite-stack';
+// import { StaticSiteStack } from '../lib/staticsite-stack';
 import { PipelineStack } from '../lib/pipeline-stack';
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
 
@@ -10,7 +10,7 @@ const pipelineStack = new PipelineStack(app, 'PipelineStack', {
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION }
 });
 
-// ## Commented out as is deloyed via CDK pipelines
+// ## Commented out as this contrucked deloyed via CDK pipeline above. Additonally for testing could just uncomment this and import to create stage agnostic of CDK pipeline to test etc.
 // new StaticSiteStack(app, 'StaticSiteStack', {
 
 //   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
