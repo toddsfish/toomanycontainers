@@ -11,7 +11,7 @@ export class PipelineStack extends cdk.Stack {
     // The basic pipeline declaration. This sets the initial structure
     // of our pipeline
     const pipeline = new CodePipeline(this, 'Pipeline', {
-      pipelineName: 'Pipeline',
+      pipelineName: 'StaticSitePipeline',
       synth: new CodeBuildStep('SynthStep', {
           input: CodePipelineSource.connection('toddsfish/toomanycontainers', 'main', {
             connectionArn: 'arn:aws:codestar-connections:ap-southeast-2:302766791300:connection/853f1d55-685e-46d6-af0a-d7256c1052aa'
@@ -25,7 +25,7 @@ export class PipelineStack extends cdk.Stack {
               'npm run build',
               'npx cdk synth'
           ],
-          primaryOutputDirectory: 'infra/' 
+          primaryOutputDirectory: 'infra/cdk.out' 
         }
       ),
       /* selfMutation: This needs to be set to true to allow the pipeline to reconfigure itself when assets or stages are being added to it, and true is the recommended setting.
