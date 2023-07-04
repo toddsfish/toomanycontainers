@@ -20,7 +20,8 @@ const pipelineStack = new PipelineStack(app, 'PipelineStack', {
 
 // CDK Nag config
 cdk.Aspects.of(app).add(new AwsSolutionsChecks({
-  verbose: true
+  verbose: true,
+  reports: false
 }));
 
 // CDK Nag config suppress CDK pipelines warnings
