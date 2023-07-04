@@ -28,5 +28,5 @@ cdk.Aspects.of(app).add(new AwsSolutionsChecks({
 NagSuppressions.addStackSuppressions(pipelineStack, [
   { id: 'AwsSolutions-S1', reason: 'Suppress CDK pipelines warnings' },
   { id: 'AwsSolutions-IAM5', reason: 'Suppress CDK pipelines warnings' },
-  //{ id: 'AwsSolutions-CB4', reason: 'Suppress CDK pipelines warnings' },
+  { id: 'AwsSolutions-CB4', reason: 'Suppress CDK pipelines warnings' },
 ]);
