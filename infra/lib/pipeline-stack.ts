@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
 import { NagSuppressions } from 'cdk-nag';
+import { StaticSiteStage } from './staticsite-stage';
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -31,6 +32,10 @@ export class PipelineStack extends cdk.Stack {
       You can temporarily set this to false while you are iterating on the pipeline itself and prefer to deploy changes using cdk deploy. */
       selfMutation: true
     });
-    
+
+    // Defines Static Site Stage in CDK pipeline
+    const deployStaticSite = new StaticSiteStage(this, 'StaticSiteStage');
+    pipeline.addStage(deployStaticSite);
+
   }
 }
