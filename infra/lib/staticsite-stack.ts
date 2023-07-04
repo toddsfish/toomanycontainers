@@ -48,21 +48,21 @@ export class StaticSiteStack extends cdk.Stack {
       logBucket: s3Bucket,
     });
     // Suppressing TLS warning, know cert installed as using default CFN cert
-    NagSuppressions.addResourceSuppressions(
-      cfDist,
-      [
-        // {
-        //   id: 'AwsSolutions-CFR4',
-        //   reason: 'Using default (.cloudfront.net) CFN cert',
-        //   //appliesTo:
-        // },
-        {
-          id: 'AwsSolutions-CFR2',
-          reason: 'Not using WAF at this point',
-          //appliesTo:
-        }, 
-      ]
-    );
+    // NagSuppressions.addResourceSuppressions(
+    //   cfDist,
+    //   [
+    //     // {
+    //     //   id: 'AwsSolutions-CFR4',
+    //     //   reason: 'Using default (.cloudfront.net) CFN cert',
+    //     //   //appliesTo:
+    //     // },
+    //     {
+    //       id: 'AwsSolutions-CFR2',
+    //       reason: 'Not using WAF at this point',
+    //       //appliesTo:
+    //     }, 
+    //   ]
+    // );
 
     // Provide some outputs via CFN output
     new cdk.CfnOutput(this, 's3BucketOutput', {
