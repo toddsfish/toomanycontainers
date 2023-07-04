@@ -24,7 +24,8 @@ export class PipelineStack extends cdk.Stack {
               'npm ci',
               'npm run build',
               'npx cdk synth'
-          ]
+          ],
+          primaryOutputDirectory: 'infra/' 
         }
       ),
       /* selfMutation: This needs to be set to true to allow the pipeline to reconfigure itself when assets or stages are being added to it, and true is the recommended setting.
