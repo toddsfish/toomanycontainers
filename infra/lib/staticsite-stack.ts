@@ -51,11 +51,11 @@ export class StaticSiteStack extends cdk.Stack {
     NagSuppressions.addResourceSuppressions(
       cfDist,
       [
-        {
-          id: 'AwsSolutions-CFR4',
-          reason: 'Using default (.cloudfront.net) CFN cert',
-          //appliesTo:
-        },
+        // {
+        //   id: 'AwsSolutions-CFR4',
+        //   reason: 'Using default (.cloudfront.net) CFN cert',
+        //   //appliesTo:
+        // },
         {
           id: 'AwsSolutions-CFR2',
           reason: 'Not using WAF at this point',

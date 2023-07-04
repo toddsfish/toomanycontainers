@@ -1,6 +1,13 @@
 {
   "version": "32.0.0",
   "artifacts": {
+    "assembly-PipelineStack-StaticSiteStage": {
+      "type": "cdk:cloud-assembly",
+      "properties": {
+        "directoryName": "assembly-PipelineStack-StaticSiteStage",
+        "displayName": "PipelineStack/StaticSiteStage"
+      }
+    },
     "PipelineStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
@@ -17,7 +24,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::302766791300:role/cdk-hnb659fds-deploy-role-302766791300-ap-southeast-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::302766791300:role/cdk-hnb659fds-cfn-exec-role-302766791300-ap-southeast-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-302766791300-ap-southeast-2/926750edef3c220cddd0b4c01fb70d1c8e7e33658cc0420c86f5b93af0010c42.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-302766791300-ap-southeast-2/34662cc43b8b229ba3ed8f066daa7dfcad884f058b360bf1749606393ab54dc7.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -121,6 +128,24 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "PipelineUpdatePipelineSelfMutationDAA41400"
+          }
+        ],
+        "/PipelineStack/Pipeline/Assets/FileRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileRole59943A77"
+          }
+        ],
+        "/PipelineStack/Pipeline/Assets/FileRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileRoleDefaultPolicy14DB8755"
+          }
+        ],
+        "/PipelineStack/Pipeline/Assets/FileAsset1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsFileAsset185A67CB4"
           }
         ],
         "/PipelineStack/CDKMetadata/Default": [

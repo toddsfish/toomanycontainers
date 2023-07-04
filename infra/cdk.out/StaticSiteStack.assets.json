@@ -7,25 +7,25 @@
         "packaging": "zip"
       },
       "destinations": {
-        "current_account-ap-southeast-2": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-2",
+        "302766791300-ap-southeast-2": {
+          "bucketName": "cdk-hnb659fds-assets-302766791300-ap-southeast-2",
           "objectKey": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip",
           "region": "ap-southeast-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-ap-southeast-2"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::302766791300:role/cdk-hnb659fds-file-publishing-role-302766791300-ap-southeast-2"
         }
       }
     },
-    "8edb9af61a3760e2384ad9ddee3673fdbd0dace3476f9f19ca514ce6ab38a45f": {
+    "cc76570be20ddc7bc7d273c4e832f7388e56bb47a382e94ede14264962498e28": {
       "source": {
         "path": "StaticSiteStack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-ap-southeast-2": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-2",
-          "objectKey": "8edb9af61a3760e2384ad9ddee3673fdbd0dace3476f9f19ca514ce6ab38a45f.json",
+        "302766791300-ap-southeast-2": {
+          "bucketName": "cdk-hnb659fds-assets-302766791300-ap-southeast-2",
+          "objectKey": "cc76570be20ddc7bc7d273c4e832f7388e56bb47a382e94ede14264962498e28.json",
           "region": "ap-southeast-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-ap-southeast-2"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::302766791300:role/cdk-hnb659fds-file-publishing-role-302766791300-ap-southeast-2"
         }
       }
     }

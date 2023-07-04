@@ -1,0 +1,131 @@
+{
+  "version": "32.0.0",
+  "artifacts": {
+    "PipelineStackStaticSiteStageStaticSite508D00FD.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "PipelineStackStaticSiteStageStaticSite508D00FD.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "PipelineStackStaticSiteStageStaticSite508D00FD": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "PipelineStackStaticSiteStageStaticSite508D00FD.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3c9e763ce0dfa81a2a28a87155d72c17434a8616c02f936b30e971b62fb24b1a.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "PipelineStackStaticSiteStageStaticSite508D00FD.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "StaticSiteStage-StaticSite"
+      },
+      "dependencies": [
+        "PipelineStackStaticSiteStageStaticSite508D00FD.assets"
+      ],
+      "metadata": {
+        "/PipelineStack/StaticSiteStage/StaticSite/HostingBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HostingBucket5DAC2127"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/HostingBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HostingBucketPolicyE887D797"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/HostingBucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "HostingBucketAutoDeleteObjectsCustomResourceC8E5B077"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/cfOai/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cfOai519D7185"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist/Origin1/S3Origin/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudfrontDistOrigin1S3Origin4FE9AAD4"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudfrontDistD61987AD"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/s3BucketOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3BucketOutput"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/s3BucketDomainOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "s3BucketDomainOutput"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/cfDistOutput": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cfDistOutput"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/PipelineStack/StaticSiteStage/StaticSite/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "PipelineStack/StaticSiteStage/StaticSite"
+    }
+  }
+}
