@@ -40,7 +40,7 @@ export class StaticSiteStack extends cdk.Stack {
         compress: true,
         viewerProtocolPolicy: cf.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
-      geoRestriction: cf.GeoRestriction.allowlist('AU'),
+      geoRestriction: cf.GeoRestriction.allowlist('AU', 'US', 'GB'),
       // The object that you want CloudFront to request from your origin (for example, index.html) when a viewer requests the root URL for your distribution.
       defaultRootObject: 'index.html',
       minimumProtocolVersion: cf.SecurityPolicyProtocol.TLS_V1_2_2021,

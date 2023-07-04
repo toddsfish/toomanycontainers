@@ -25,15 +25,16 @@ export class PipelineStack extends cdk.Stack {
               'npm run build',
               'npx cdk synth'
           ],
-          primaryOutputDirectory: './infra/cdk.out' 
+          primaryOutputDirectory: './infra/cdk.out'
         }
       ),
       /* selfMutation: This needs to be set to true to allow the pipeline to reconfigure itself when assets or stages are being added to it, and true is the recommended setting.
       You can temporarily set this to false while you are iterating on the pipeline itself and prefer to deploy changes using cdk deploy. */
-      selfMutation: true
+      selfMutation: true,
+      useChangeSets: true
     });
 
-    // Defines Static Site Stage in CDK pipeline
+    // Defines a stage to deploy Static Site via CDK pipelines
     const deployStaticSite = new StaticSiteStage(this, 'StaticSiteStage');
     pipeline.addStage(deployStaticSite);
 
