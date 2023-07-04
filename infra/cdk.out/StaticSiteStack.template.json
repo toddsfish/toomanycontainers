@@ -1,0 +1,439 @@
+{
+ "Resources": {
+  "HostingBucket5DAC2127": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "AccessControl": "LogDeliveryWrite",
+    "LoggingConfiguration": {
+     "LogFilePrefix": "serverAccessLogs"
+    },
+    "OwnershipControls": {
+     "Rules": [
+      {
+       "ObjectOwnership": "ObjectWriter"
+      }
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/HostingBucket/Resource"
+   }
+  },
+  "HostingBucketPolicyE887D797": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "HostingBucket5DAC2127"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "HostingBucket5DAC2127",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "HostingBucket5DAC2127",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:PutObject",
+       "Condition": {
+        "ArnLike": {
+         "aws:SourceArn": {
+          "Fn::GetAtt": [
+           "HostingBucket5DAC2127",
+           "Arn"
+          ]
+         }
+        },
+        "StringEquals": {
+         "aws:SourceAccount": {
+          "Ref": "AWS::AccountId"
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "logging.s3.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "HostingBucket5DAC2127",
+            "Arn"
+           ]
+          },
+          "/serverAccessLogs*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "HostingBucket5DAC2127",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "HostingBucket5DAC2127",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "CanonicalUser": [
+         {
+          "Fn::GetAtt": [
+           "CloudfrontDistOrigin1S3Origin4FE9AAD4",
+           "S3CanonicalUserId"
+          ]
+         },
+         {
+          "Fn::GetAtt": [
+           "cfOai519D7185",
+           "S3CanonicalUserId"
+          ]
+         }
+        ]
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "HostingBucket5DAC2127",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/HostingBucket/Policy/Resource"
+   }
+  },
+  "HostingBucketAutoDeleteObjectsCustomResourceC8E5B077": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "HostingBucket5DAC2127"
+    }
+   },
+   "DependsOn": [
+    "HostingBucketPolicyE887D797"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/HostingBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-2"
+     },
+     "S3Key": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs16.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "HostingBucket5DAC2127"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26",
+    "aws:asset:property": "Code"
+   }
+  },
+  "cfOai519D7185": {
+   "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+   "Properties": {
+    "CloudFrontOriginAccessIdentityConfig": {
+     "Comment": "oai"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/cfOai/Resource"
+   }
+  },
+  "CloudfrontDistOrigin1S3Origin4FE9AAD4": {
+   "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+   "Properties": {
+    "CloudFrontOriginAccessIdentityConfig": {
+     "Comment": "Identity for StaticSiteStackCloudfrontDistOrigin1BA05F877"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/CloudfrontDist/Origin1/S3Origin/Resource"
+   }
+  },
+  "CloudfrontDistD61987AD": {
+   "Type": "AWS::CloudFront::Distribution",
+   "Properties": {
+    "DistributionConfig": {
+     "DefaultCacheBehavior": {
+      "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+      "Compress": true,
+      "TargetOriginId": "StaticSiteStackCloudfrontDistOrigin1BA05F877",
+      "ViewerProtocolPolicy": "redirect-to-https"
+     },
+     "DefaultRootObject": "index.html",
+     "Enabled": true,
+     "HttpVersion": "http2",
+     "IPV6Enabled": true,
+     "Logging": {
+      "Bucket": {
+       "Fn::GetAtt": [
+        "HostingBucket5DAC2127",
+        "RegionalDomainName"
+       ]
+      }
+     },
+     "Origins": [
+      {
+       "DomainName": {
+        "Fn::GetAtt": [
+         "HostingBucket5DAC2127",
+         "RegionalDomainName"
+        ]
+       },
+       "Id": "StaticSiteStackCloudfrontDistOrigin1BA05F877",
+       "S3OriginConfig": {
+        "OriginAccessIdentity": {
+         "Fn::Join": [
+          "",
+          [
+           "origin-access-identity/cloudfront/",
+           {
+            "Ref": "CloudfrontDistOrigin1S3Origin4FE9AAD4"
+           }
+          ]
+         ]
+        }
+       }
+      }
+     ],
+     "Restrictions": {
+      "GeoRestriction": {
+       "Locations": [
+        "AU",
+        "US",
+        "GB"
+       ],
+       "RestrictionType": "whitelist"
+      }
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/CloudfrontDist/Resource",
+    "cdk_nag": {
+     "rules_to_suppress": [
+      {
+       "reason": "Using default (.cloudfront.net) CFN cert",
+       "id": "AwsSolutions-CFR4"
+      },
+      {
+       "reason": "Not using WAF at this point",
+       "id": "AwsSolutions-CFR2"
+      }
+     ]
+    }
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22Q3QrCMAyFn8X7rg5F8FYnglcb8wFE2zjiZitNOpGyd7d1ggpenZzkC/mZyeVC5pPjnTKl26zDkwx7PqpWxNQh0FyGtVctsCjO5h2NUtkO1eOTHv0gVGe9PjtrWIbSYYNmpRQQ7TQYRn51FInZJuYvsUFihyfPaE3Cv/0wiMIT22sNZL1TkIBP/FOqnO1RgxMrIuB4VhzVJL70fPM8CGM1yAtN+1ku5/ENF0LMnI9bXEHWoz4Bh19pUCIBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "StaticSiteStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "s3BucketOutput": {
+   "Value": {
+    "Ref": "HostingBucket5DAC2127"
+   }
+  },
+  "s3BucketDomainOutput": {
+   "Value": {
+    "Fn::GetAtt": [
+     "HostingBucket5DAC2127",
+     "DomainName"
+    ]
+   }
+  },
+  "cfDistOutput": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CloudfrontDistD61987AD",
+     "DomainName"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

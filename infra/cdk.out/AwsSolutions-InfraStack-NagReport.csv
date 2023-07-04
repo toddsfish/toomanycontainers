@@ -1,0 +1,4 @@
+Rule ID,Resource ID,Compliance,Exception Reason,Rule Level,Rule Info
+"AwsSolutions-SQS2","InfraStack/InfraQueue/Resource","Compliant","N/A","Error","The SQS Queue does not have server-side encryption enabled."
+"AwsSolutions-SQS3","InfraStack/InfraQueue/Resource","Non-Compliant","N/A","Error","The SQS queue is not used as a dead-letter queue (DLQ) and does not have a DLQ enabled."
+"AwsSolutions-SQS4","InfraStack/InfraQueue/Resource","Non-Compliant","N/A","Error","The SQS queue does not require requests to use SSL."

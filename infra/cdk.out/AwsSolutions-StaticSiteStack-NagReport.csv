@@ -1,0 +1,12 @@
+Rule ID,Resource ID,Compliance,Exception Reason,Rule Level,Rule Info
+"AwsSolutions-S1","StaticSiteStack/HostingBucket/Resource","Compliant","N/A","Error","The S3 Bucket has server access logs disabled."
+"AwsSolutions-S2","StaticSiteStack/HostingBucket/Resource","Compliant","N/A","Error","The S3 Bucket does not have public access restricted and blocked."
+"AwsSolutions-S5","StaticSiteStack/HostingBucket/Resource","Compliant","N/A","Error","The S3 static website bucket either has an open world bucket policy or does not use a CloudFront Origin Access Identity (OAI) in the bucket policy for limited getObject and/or putObject permissions."
+"AwsSolutions-S10","StaticSiteStack/HostingBucket/Resource","Compliant","N/A","Error","The S3 Bucket or bucket policy does not require requests to use SSL."
+"AwsSolutions-S10","StaticSiteStack/HostingBucket/Policy/Resource","Compliant","N/A","Error","The S3 Bucket or bucket policy does not require requests to use SSL."
+"AwsSolutions-CFR1","StaticSiteStack/CloudfrontDist/Resource","Compliant","N/A","Warning","The CloudFront distribution may require Geo restrictions."
+"AwsSolutions-CFR2","StaticSiteStack/CloudfrontDist/Resource","Suppressed","Not using WAF at this point","Warning","The CloudFront distribution may require integration with AWS WAF."
+"AwsSolutions-CFR3","StaticSiteStack/CloudfrontDist/Resource","Compliant","N/A","Error","The CloudFront distribution does not have access logging enabled."
+"AwsSolutions-CFR4","StaticSiteStack/CloudfrontDist/Resource","Suppressed","Using default (.cloudfront.net) CFN cert","Error","The CloudFront distribution allows for SSLv3 or TLSv1 for HTTPS viewer connections."
+"AwsSolutions-CFR5","StaticSiteStack/CloudfrontDist/Resource","Compliant","N/A","Error","The CloudFront distributions uses SSLv3 or TLSv1 for communication to the origin."
+"AwsSolutions-CFR6","StaticSiteStack/CloudfrontDist/Resource","Compliant","N/A","Error","The CloudFront distribution does not use an origin access identity with an S3 origin."
