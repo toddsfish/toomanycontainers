@@ -1,8 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
-import { NagSuppressions } from 'cdk-nag';
 import { StaticSiteStage } from './staticsite-stage';
+import { create } from 'domain';
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -34,9 +34,10 @@ export class PipelineStack extends cdk.Stack {
       useChangeSets: true
     });
 
-    // Defines a stage to deploy Static Site via CDK pipelines
-    const deployStaticSite = new StaticSiteStage(this, 'StaticSiteStage');
-    pipeline.addStage(deployStaticSite);
+    // Defines a stage to create Static Site via CDK pipelines
+    const createStaticSite = new StaticSiteStage(this, 'StaticSiteStage');
+    // TODO: Add pre and post automated test to the stage to i.e http test site
+    pipeline.addStage(createStaticSite);
 
   }
 }

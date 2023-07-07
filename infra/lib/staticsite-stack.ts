@@ -4,14 +4,19 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cf from 'aws-cdk-lib/aws-cloudfront'
 import * as iam from 'aws-cdk-lib/aws-iam'
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { NagSuppressions } from 'cdk-nag';
 
 export class StaticSiteStack extends cdk.Stack {
+
+  // create readonly (Read-only members can be accessed outside the class, but their value cannot be changed) Bucket object to host the site content
+  readonly s3Bucket: s3.Bucket
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // Bucket to host the site content
-    const s3Bucket = new s3.Bucket(this, 'HostingBucket', {
+    this.s3Bucket = new s3.Bucket(this, 'HostingBucket', {
       enforceSSL: true,
       // If defined without "serverAccessLogsBucket", enables access server access logs to current bucket with this prefix.
       serverAccessLogsPrefix: 'serverAccessLogs',
@@ -27,16 +32,16 @@ export class StaticSiteStack extends cdk.Stack {
     });
 
     // Add OAI to bucket policy
-    s3Bucket.addToResourcePolicy(new iam.PolicyStatement({
+    this.s3Bucket.addToResourcePolicy(new iam.PolicyStatement({
       actions: ['s3:GetObject'],
-      resources: [s3Bucket.arnForObjects('*')],
+      resources: [this.s3Bucket.arnForObjects('*')],
       principals: [new iam.CanonicalUserPrincipal(cfOai.cloudFrontOriginAccessIdentityS3CanonicalUserId)]
     }))
 
     // Cloudfront distribution fronting the site
     const cfDist = new cf.Distribution(this, 'CloudfrontDist', {
       defaultBehavior: {
-        origin: new S3Origin(s3Bucket),
+        origin: new S3Origin(this.s3Bucket),
         compress: true,
         viewerProtocolPolicy: cf.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
@@ -45,17 +50,17 @@ export class StaticSiteStack extends cdk.Stack {
       defaultRootObject: 'index.html',
       minimumProtocolVersion: cf.SecurityPolicyProtocol.TLS_V1_2_2021,
       enableLogging: true,
-      logBucket: s3Bucket,
+      logBucket: this.s3Bucket,
     });
     // Suppressing TLS warning, know cert installed as using default CFN cert
     NagSuppressions.addResourceSuppressions(
       cfDist,
       [
-        // {
-        //   id: 'AwsSolutions-CFR4',
-        //   reason: 'Using default (.cloudfront.net) CFN cert',
-        //   //appliesTo:
-        // },
+        {
+          id: 'AwsSolutions-CFR4',
+          reason: 'Using default (.cloudfront.net) CFN cert',
+          //appliesTo:
+        },
         {
           id: 'AwsSolutions-CFR2',
           reason: 'Not using WAF at this point',
@@ -64,12 +69,18 @@ export class StaticSiteStack extends cdk.Stack {
       ]
     );
 
+    new BucketDeployment(this, 'DeploySite', {
+      sources: [Source.asset('../src')],
+      destinationBucket: this.s3Bucket,
+      retainOnDelete: false
+    });
+
     // Provide some outputs via CFN output
     new cdk.CfnOutput(this, 's3BucketOutput', {
-      value: s3Bucket.bucketName
+      value: this.s3Bucket.bucketName
     })
     new cdk.CfnOutput(this, 's3BucketDomainOutput', {
-      value: s3Bucket.bucketDomainName
+      value: this.s3Bucket.bucketDomainName
     })
     new cdk.CfnOutput(this, 'cfDistOutput', {
       value: cfDist.domainName
