@@ -71,7 +71,13 @@ export class StaticSiteStack extends cdk.Stack {
 
     new BucketDeployment(this, 'DeploySite', {
       sources: [Source.asset('../src')],
+      // destination bucket
       destinationBucket: this.s3Bucket,
+      // the cf distribution
+      distribution: cfDist,
+      // this will invalidate the cache on the CDN after the deployment
+      distributionPaths: ['/*'],
+      // this will delete the objects from the bucket on destroy making it ephemeral
       retainOnDelete: false
     });
 

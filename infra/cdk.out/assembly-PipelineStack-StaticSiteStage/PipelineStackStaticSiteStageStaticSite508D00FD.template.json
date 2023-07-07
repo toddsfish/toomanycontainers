@@ -406,13 +406,19 @@
      }
     ],
     "SourceObjectKeys": [
-     "7fe7becb89ea150fba0f55ce537edccb94f573334e64088cad5d5f61347bcf31.zip"
+     "e8e61db5512c4b1ab2937ea5198f8617b57ed5d22d498796f1e5efa67b49b30a.zip"
     ],
     "DestinationBucketName": {
      "Ref": "HostingBucket5DAC2127"
     },
     "RetainOnDelete": false,
-    "Prune": true
+    "Prune": true,
+    "DistributionId": {
+     "Ref": "CloudfrontDistD61987AD"
+    },
+    "DistributionPaths": [
+     "/*"
+    ]
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete",
@@ -536,6 +542,14 @@
          ]
         }
        ]
+      },
+      {
+       "Action": [
+        "cloudfront:CreateInvalidation",
+        "cloudfront:GetInvalidation"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
       }
      ],
      "Version": "2012-10-17"
