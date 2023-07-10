@@ -41,7 +41,7 @@ export class StaticSiteStack extends cdk.Stack {
     }))
 
     // Cloudfront distribution fronting the site
-    const cfDist = new cf.Distribution(this, 'CloudfrontDist', {
+    this.cfDist = new cf.Distribution(this, 'CloudfrontDist', {
       defaultBehavior: {
         origin: new S3Origin(this.s3Bucket),
         compress: true,
@@ -56,7 +56,7 @@ export class StaticSiteStack extends cdk.Stack {
     });
     // Suppressing TLS warning, know cert installed as using default CFN cert
     NagSuppressions.addResourceSuppressions(
-      cfDist,
+      this.cfDist,
       [
         {
           id: 'AwsSolutions-CFR4',
@@ -70,19 +70,7 @@ export class StaticSiteStack extends cdk.Stack {
         }, 
       ]
     );
-
-    // new BucketDeployment(this, 'DeploySite', {
-    //   sources: [Source.asset('../src')],
-    //   // destination bucket
-    //   destinationBucket: this.s3Bucket,
-    //   // the cf distribution
-    //   distribution: this.cfDist,
-    //   // this will invalidate the cache on the CDN after the deployment
-    //   distributionPaths: ['/*'],
-    //   // this will delete the objects from the bucket on destroy making it ephemeral
-    //   retainOnDelete: false
-    // });
-
+    
     // Provide some outputs via CFN output
     new cdk.CfnOutput(this, 's3BucketOutput', {
       value: this.s3Bucket.bucketName
@@ -91,7 +79,7 @@ export class StaticSiteStack extends cdk.Stack {
       value: this.s3Bucket.bucketDomainName
     })
     new cdk.CfnOutput(this, 'cfDistOutput', {
-      value: cfDist.domainName
+      value: this.cfDist.domainName
     })
   }
 }
