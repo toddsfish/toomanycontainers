@@ -11,6 +11,8 @@ export class StaticSiteStack extends cdk.Stack {
 
   // create readonly (Read-only members can be accessed outside the class, but their value cannot be changed) Bucket object to host the site content
   readonly s3Bucket: s3.Bucket
+  // create readonly (Read-only members can be accessed outside the class, but their value cannot be changed) CF Distribution object fronting S3 bucket
+  readonly cfDist: cf.Distribution
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);

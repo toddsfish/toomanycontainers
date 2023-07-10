@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
-import { StaticSiteDeployStage } from './staticsite-stage';
+import { DeployStage } from './staticsite-stage';
 
 
 export class PipelineStack extends cdk.Stack {
@@ -34,9 +34,11 @@ export class PipelineStack extends cdk.Stack {
       useChangeSets: true
     });
 
+    // TODO: Define stage to take output and run cfn-nag against?
+
     // Defines a stage to create Static Site via CDK pipelines
-    const createStaticSite = new StaticSiteDeployStage(this, 'StaticSiteStage');
-    // TODO: Add pre and post automated test to the stage to i.e http test site
+    const createStaticSite = new DeployStage(this, 'StaticSiteStage');
+    // TODO: Add post automated test to the stage to i.e http test site
     pipeline.addStage(createStaticSite);
 
   }
