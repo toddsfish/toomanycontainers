@@ -555,7 +555,7 @@
                             "name": "StaticSiteStage",
                             "actions": [
                               {
-                                "name": "Prepare",
+                                "name": "StaticSiteStack.Prepare",
                                 "inputArtifacts": [
                                   {
                                     "name": "SynthStep_Output"
@@ -568,7 +568,7 @@
                                   "provider": "CloudFormation"
                                 },
                                 "configuration": {
-                                  "StackName": "StaticSiteStage-StaticSite",
+                                  "StackName": "StaticSiteStage-StaticSiteStack",
                                   "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
                                   "RoleArn": {
                                     "Fn::Join": [
@@ -595,7 +595,7 @@
                                   },
                                   "ActionMode": "CHANGE_SET_REPLACE",
                                   "ChangeSetName": "PipelineChange",
-                                  "TemplatePath": "SynthStep_Output::assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.template.json"
+                                  "TemplatePath": "SynthStep_Output::assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSiteStack40594E39.template.json"
                                 },
                                 "runOrder": 1,
                                 "roleArn": {
@@ -623,7 +623,7 @@
                                 }
                               },
                               {
-                                "name": "Deploy",
+                                "name": "StaticSiteStack.Deploy",
                                 "actionTypeId": {
                                   "category": "Deploy",
                                   "version": "1",
@@ -631,11 +631,117 @@
                                   "provider": "CloudFormation"
                                 },
                                 "configuration": {
-                                  "StackName": "StaticSiteStage-StaticSite",
+                                  "StackName": "StaticSiteStage-StaticSiteStack",
                                   "ActionMode": "CHANGE_SET_EXECUTE",
                                   "ChangeSetName": "PipelineChange"
                                 },
                                 "runOrder": 2,
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":role/cdk-hnb659fds-deploy-role-",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      "-",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "DeployStaticSiteStack.Prepare",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "SynthStep_Output"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CloudFormation"
+                                },
+                                "configuration": {
+                                  "StackName": "StaticSiteStage-DeployStaticSiteStack",
+                                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                                  "RoleArn": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::",
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        ":role/cdk-hnb659fds-cfn-exec-role-",
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        "-",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        }
+                                      ]
+                                    ]
+                                  },
+                                  "ActionMode": "CHANGE_SET_REPLACE",
+                                  "ChangeSetName": "PipelineChange",
+                                  "TemplatePath": "SynthStep_Output::assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.template.json"
+                                },
+                                "runOrder": 3,
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":role/cdk-hnb659fds-deploy-role-",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      "-",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "DeployStaticSiteStack.Deploy",
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CloudFormation"
+                                },
+                                "configuration": {
+                                  "StackName": "StaticSiteStage-DeployStaticSiteStack",
+                                  "ActionMode": "CHANGE_SET_EXECUTE",
+                                  "ChangeSetName": "PipelineChange"
+                                },
+                                "runOrder": 4,
                                 "roleArn": {
                                   "Fn::Join": [
                                     "",
@@ -710,7 +816,18 @@
                                           "Action": "sts:AssumeRole",
                                           "Effect": "Allow",
                                           "Principal": {
-                                            "AWS": "arn:aws:iam::302766791300:root"
+                                            "AWS": {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  "arn:aws:iam::",
+                                                  {
+                                                    "Ref": "AWS::AccountId"
+                                                  },
+                                                  ":root"
+                                                ]
+                                              ]
+                                            }
                                           }
                                         }
                                       ],
@@ -911,7 +1028,11 @@
                                                       "Fn::Join": [
                                                         "",
                                                         [
-                                                          "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+                                                          "arn:aws:logs:ap-southeast-2:",
+                                                          {
+                                                            "Ref": "AWS::AccountId"
+                                                          },
+                                                          ":log-group:/aws/codebuild/",
                                                           {
                                                             "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
                                                           },
@@ -923,7 +1044,11 @@
                                                       "Fn::Join": [
                                                         "",
                                                         [
-                                                          "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+                                                          "arn:aws:logs:ap-southeast-2:",
+                                                          {
+                                                            "Ref": "AWS::AccountId"
+                                                          },
+                                                          ":log-group:/aws/codebuild/",
                                                           {
                                                             "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
                                                           }
@@ -945,7 +1070,11 @@
                                                     "Fn::Join": [
                                                       "",
                                                       [
-                                                        "arn:aws:codebuild:ap-southeast-2:302766791300:report-group/",
+                                                        "arn:aws:codebuild:ap-southeast-2:",
+                                                        {
+                                                          "Ref": "AWS::AccountId"
+                                                        },
+                                                        ":report-group/",
                                                         {
                                                           "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
                                                         },
@@ -1139,17 +1268,33 @@
                     "id": "StaticSiteStage",
                     "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage",
                     "children": {
-                      "Prepare": {
-                        "id": "Prepare",
-                        "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage/Prepare",
+                      "StaticSiteStack.Prepare": {
+                        "id": "StaticSiteStack.Prepare",
+                        "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage/StaticSiteStack.Prepare",
                         "constructInfo": {
                           "fqn": "constructs.Construct",
                           "version": "10.2.60"
                         }
                       },
-                      "Deploy": {
-                        "id": "Deploy",
-                        "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage/Deploy",
+                      "StaticSiteStack.Deploy": {
+                        "id": "StaticSiteStack.Deploy",
+                        "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage/StaticSiteStack.Deploy",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.2.60"
+                        }
+                      },
+                      "DeployStaticSiteStack.Prepare": {
+                        "id": "DeployStaticSiteStack.Prepare",
+                        "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage/DeployStaticSiteStack.Prepare",
+                        "constructInfo": {
+                          "fqn": "constructs.Construct",
+                          "version": "10.2.60"
+                        }
+                      },
+                      "DeployStaticSiteStack.Deploy": {
+                        "id": "DeployStaticSiteStack.Deploy",
+                        "path": "PipelineStack/Pipeline/Pipeline/StaticSiteStage/DeployStaticSiteStack.Deploy",
                         "constructInfo": {
                           "fqn": "constructs.Construct",
                           "version": "10.2.60"
@@ -1406,7 +1551,11 @@
                                               "Fn::Join": [
                                                 "",
                                                 [
-                                                  "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+                                                  "arn:aws:logs:ap-southeast-2:",
+                                                  {
+                                                    "Ref": "AWS::AccountId"
+                                                  },
+                                                  ":log-group:/aws/codebuild/",
                                                   {
                                                     "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
                                                   },
@@ -1418,7 +1567,11 @@
                                               "Fn::Join": [
                                                 "",
                                                 [
-                                                  "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+                                                  "arn:aws:logs:ap-southeast-2:",
+                                                  {
+                                                    "Ref": "AWS::AccountId"
+                                                  },
+                                                  ":log-group:/aws/codebuild/",
                                                   {
                                                     "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
                                                   }
@@ -1440,7 +1593,11 @@
                                             "Fn::Join": [
                                               "",
                                               [
-                                                "arn:aws:codebuild:ap-southeast-2:302766791300:report-group/",
+                                                "arn:aws:codebuild:ap-southeast-2:",
+                                                {
+                                                  "Ref": "AWS::AccountId"
+                                                },
+                                                ":report-group/",
                                                 {
                                                   "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
                                                 },
@@ -1461,7 +1618,18 @@
                                             }
                                           },
                                           "Effect": "Allow",
-                                          "Resource": "arn:*:iam::302766791300:role/*"
+                                          "Resource": {
+                                            "Fn::Join": [
+                                              "",
+                                              [
+                                                "arn:*:iam::",
+                                                {
+                                                  "Ref": "AWS::AccountId"
+                                                },
+                                                ":role/*"
+                                              ]
+                                            ]
+                                          }
                                         },
                                         {
                                           "Action": [
@@ -1608,7 +1776,18 @@
                                   "Action": "sts:AssumeRole",
                                   "Effect": "Allow",
                                   "Principal": {
-                                    "AWS": "arn:aws:iam::302766791300:root",
+                                    "AWS": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:iam::",
+                                          {
+                                            "Ref": "AWS::AccountId"
+                                          },
+                                          ":root"
+                                        ]
+                                      ]
+                                    },
                                     "Service": "codebuild.amazonaws.com"
                                   }
                                 }
@@ -1641,7 +1820,18 @@
                                         "logs:PutLogEvents"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/*"
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:aws:logs:ap-southeast-2:",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":log-group:/aws/codebuild/*"
+                                          ]
+                                        ]
+                                      }
                                     },
                                     {
                                       "Action": [
@@ -1652,7 +1842,18 @@
                                         "codebuild:UpdateReport"
                                       ],
                                       "Effect": "Allow",
-                                      "Resource": "arn:aws:codebuild:ap-southeast-2:302766791300:report-group/*"
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:aws:codebuild:ap-southeast-2:",
+                                            {
+                                              "Ref": "AWS::AccountId"
+                                            },
+                                            ":report-group/*"
+                                          ]
+                                        ]
+                                      }
                                     },
                                     {
                                       "Action": [
@@ -1756,7 +1957,7 @@
                             },
                             "source": {
                               "type": "CODEPIPELINE",
-                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSiteStack40594E39.assets.json\\\" --verbose publish \\\"64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
                             },
                             "cache": {
                               "type": "NO_CACHE"
@@ -1804,7 +2005,7 @@
                             },
                             "source": {
                               "type": "CODEPIPELINE",
-                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"f8e422c63159c82c409e8254300a3134e020892c27382902d4c8c0a5b35d0a06:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.assets.json\\\" --verbose publish \\\"f8e422c63159c82c409e8254300a3134e020892c27382902d4c8c0a5b35d0a06:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
                             },
                             "cache": {
                               "type": "NO_CACHE"
@@ -1852,7 +2053,7 @@
                             },
                             "source": {
                               "type": "CODEPIPELINE",
-                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.assets.json\\\" --verbose publish \\\"9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
                             },
                             "cache": {
                               "type": "NO_CACHE"
@@ -1900,7 +2101,7 @@
                             },
                             "source": {
                               "type": "CODEPIPELINE",
-                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"e8e61db5512c4b1ab2937ea5198f8617b57ed5d22d498796f1e5efa67b49b30a:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.assets.json\\\" --verbose publish \\\"9411dbb5e0e529ac893033d2c6f4fa5ac495c3f306adf46bc24236e493e00d21:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}"
                             },
                             "cache": {
                               "type": "NO_CACHE"
@@ -1936,17 +2137,17 @@
             "id": "StaticSiteStage",
             "path": "PipelineStack/StaticSiteStage",
             "children": {
-              "StaticSite": {
-                "id": "StaticSite",
-                "path": "PipelineStack/StaticSiteStage/StaticSite",
+              "StaticSiteStack": {
+                "id": "StaticSiteStack",
+                "path": "PipelineStack/StaticSiteStage/StaticSiteStack",
                 "children": {
                   "HostingBucket": {
                     "id": "HostingBucket",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/HostingBucket",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/HostingBucket/Resource",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                           "aws:cdk:cloudformation:props": {
@@ -1967,7 +2168,7 @@
                                 "value": "true"
                               },
                               {
-                                "key": "aws-cdk:cr-owned:705fd221",
+                                "key": "aws-cdk:cr-owned:c65819a5",
                                 "value": "true"
                               }
                             ]
@@ -1980,11 +2181,11 @@
                       },
                       "Policy": {
                         "id": "Policy",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/HostingBucket/Policy",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket/Policy",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/HostingBucket/Policy/Resource",
+                            "path": "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket/Policy/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
                               "aws:cdk:cloudformation:props": {
@@ -2153,11 +2354,11 @@
                       },
                       "AutoDeleteObjectsCustomResource": {
                         "id": "AutoDeleteObjectsCustomResource",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/HostingBucket/AutoDeleteObjectsCustomResource",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket/AutoDeleteObjectsCustomResource",
                         "children": {
                           "Default": {
                             "id": "Default",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/HostingBucket/AutoDeleteObjectsCustomResource/Default",
+                            "path": "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket/AutoDeleteObjectsCustomResource/Default",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.CfnResource",
                               "version": "2.85.0"
@@ -2177,11 +2378,11 @@
                   },
                   "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
                     "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
                     "children": {
                       "Staging": {
                         "id": "Staging",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.AssetStaging",
                           "version": "2.85.0"
@@ -2189,7 +2390,7 @@
                       },
                       "Role": {
                         "id": "Role",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.CfnResource",
                           "version": "2.85.0"
@@ -2197,7 +2398,7 @@
                       },
                       "Handler": {
                         "id": "Handler",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.CfnResource",
                           "version": "2.85.0"
@@ -2211,11 +2412,11 @@
                   },
                   "cfOai": {
                     "id": "cfOai",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/cfOai",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/cfOai",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/cfOai/Resource",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/cfOai/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
                           "aws:cdk:cloudformation:props": {
@@ -2237,24 +2438,24 @@
                   },
                   "CloudfrontDist": {
                     "id": "CloudfrontDist",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist",
                     "children": {
                       "Origin1": {
                         "id": "Origin1",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist/Origin1",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist/Origin1",
                         "children": {
                           "S3Origin": {
                             "id": "S3Origin",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist/Origin1/S3Origin",
+                            "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist/Origin1/S3Origin",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist/Origin1/S3Origin/Resource",
+                                "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist/Origin1/S3Origin/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
                                   "aws:cdk:cloudformation:props": {
                                     "cloudFrontOriginAccessIdentityConfig": {
-                                      "comment": "Identity for PipelineStackStaticSiteStageStaticSiteCloudfrontDistOrigin1EC49855B"
+                                      "comment": "Identity for PipelineStackStaticSiteStageStaticSiteStackCloudfrontDistOrigin15F3DEACA"
                                     }
                                   }
                                 },
@@ -2277,7 +2478,7 @@
                       },
                       "Resource": {
                         "id": "Resource",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/CloudfrontDist/Resource",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
                           "aws:cdk:cloudformation:props": {
@@ -2291,7 +2492,7 @@
                                       "RegionalDomainName"
                                     ]
                                   },
-                                  "id": "PipelineStackStaticSiteStageStaticSiteCloudfrontDistOrigin1EC49855B",
+                                  "id": "PipelineStackStaticSiteStageStaticSiteStackCloudfrontDistOrigin15F3DEACA",
                                   "s3OriginConfig": {
                                     "originAccessIdentity": {
                                       "Fn::Join": [
@@ -2309,7 +2510,7 @@
                               ],
                               "defaultCacheBehavior": {
                                 "pathPattern": "*",
-                                "targetOriginId": "PipelineStackStaticSiteStageStaticSiteCloudfrontDistOrigin1EC49855B",
+                                "targetOriginId": "PipelineStackStaticSiteStageStaticSiteStackCloudfrontDistOrigin15F3DEACA",
                                 "cachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
                                 "compress": true,
                                 "viewerProtocolPolicy": "redirect-to-https"
@@ -2349,21 +2550,131 @@
                       "version": "2.85.0"
                     }
                   },
+                  "s3BucketOutput": {
+                    "id": "s3BucketOutput",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/s3BucketOutput",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.85.0"
+                    }
+                  },
+                  "s3BucketDomainOutput": {
+                    "id": "s3BucketDomainOutput",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/s3BucketDomainOutput",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.85.0"
+                    }
+                  },
+                  "cfDistOutput": {
+                    "id": "cfDistOutput",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/cfDistOutput",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnOutput",
+                      "version": "2.85.0"
+                    }
+                  },
+                  "CDKMetadata": {
+                    "id": "CDKMetadata",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CDKMetadata",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CDKMetadata/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.85.0"
+                        }
+                      },
+                      "Condition": {
+                        "id": "Condition",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CDKMetadata/Condition",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnCondition",
+                          "version": "2.85.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.2.60"
+                    }
+                  },
+                  "Exports": {
+                    "id": "Exports",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Exports",
+                    "children": {
+                      "Output{\"Ref\":\"HostingBucket5DAC2127\"}": {
+                        "id": "Output{\"Ref\":\"HostingBucket5DAC2127\"}",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Exports/Output{\"Ref\":\"HostingBucket5DAC2127\"}",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnOutput",
+                          "version": "2.85.0"
+                        }
+                      },
+                      "Output{\"Ref\":\"CloudfrontDistD61987AD\"}": {
+                        "id": "Output{\"Ref\":\"CloudfrontDistD61987AD\"}",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Exports/Output{\"Ref\":\"CloudfrontDistD61987AD\"}",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnOutput",
+                          "version": "2.85.0"
+                        }
+                      },
+                      "Output{\"Fn::GetAtt\":[\"HostingBucket5DAC2127\",\"Arn\"]}": {
+                        "id": "Output{\"Fn::GetAtt\":[\"HostingBucket5DAC2127\",\"Arn\"]}",
+                        "path": "PipelineStack/StaticSiteStage/StaticSiteStack/Exports/Output{\"Fn::GetAtt\":[\"HostingBucket5DAC2127\",\"Arn\"]}",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnOutput",
+                          "version": "2.85.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.2.60"
+                    }
+                  },
+                  "BootstrapVersion": {
+                    "id": "BootstrapVersion",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/BootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnParameter",
+                      "version": "2.85.0"
+                    }
+                  },
+                  "CheckBootstrapVersion": {
+                    "id": "CheckBootstrapVersion",
+                    "path": "PipelineStack/StaticSiteStage/StaticSiteStack/CheckBootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnRule",
+                      "version": "2.85.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Stack",
+                  "version": "2.85.0"
+                }
+              },
+              "DeployStaticSiteStack": {
+                "id": "DeployStaticSiteStack",
+                "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack",
+                "children": {
                   "DeploySite": {
                     "id": "DeploySite",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite",
+                    "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite",
                     "children": {
                       "AwsCliLayer": {
                         "id": "AwsCliLayer",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/AwsCliLayer",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer",
                         "children": {
                           "Code": {
                             "id": "Code",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/AwsCliLayer/Code",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer/Code",
                             "children": {
                               "Stage": {
                                 "id": "Stage",
-                                "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/AwsCliLayer/Code/Stage",
+                                "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer/Code/Stage",
                                 "constructInfo": {
                                   "fqn": "aws-cdk-lib.AssetStaging",
                                   "version": "2.85.0"
@@ -2371,7 +2682,7 @@
                               },
                               "AssetBucket": {
                                 "id": "AssetBucket",
-                                "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/AwsCliLayer/Code/AssetBucket",
+                                "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer/Code/AssetBucket",
                                 "constructInfo": {
                                   "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                                   "version": "2.85.0"
@@ -2385,7 +2696,7 @@
                           },
                           "Resource": {
                             "id": "Resource",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/AwsCliLayer/Resource",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
                               "aws:cdk:cloudformation:props": {
@@ -2411,7 +2722,7 @@
                       },
                       "CustomResourceHandler": {
                         "id": "CustomResourceHandler",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/CustomResourceHandler",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/CustomResourceHandler",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_lambda.SingletonFunction",
                           "version": "2.85.0"
@@ -2419,11 +2730,11 @@
                       },
                       "Asset1": {
                         "id": "Asset1",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/Asset1",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/Asset1",
                         "children": {
                           "Stage": {
                             "id": "Stage",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/Asset1/Stage",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/Asset1/Stage",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.AssetStaging",
                               "version": "2.85.0"
@@ -2431,7 +2742,7 @@
                           },
                           "AssetBucket": {
                             "id": "AssetBucket",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/Asset1/AssetBucket",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/Asset1/AssetBucket",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                               "version": "2.85.0"
@@ -2445,11 +2756,11 @@
                       },
                       "CustomResource": {
                         "id": "CustomResource",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/CustomResource",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/CustomResource",
                         "children": {
                           "Default": {
                             "id": "Default",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/DeploySite/CustomResource/Default",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/CustomResource/Default",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.CfnResource",
                               "version": "2.85.0"
@@ -2469,15 +2780,15 @@
                   },
                   "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C": {
                     "id": "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
+                    "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
                     "children": {
                       "ServiceRole": {
                         "id": "ServiceRole",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole",
                         "children": {
                           "ImportServiceRole": {
                             "id": "ImportServiceRole",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/ImportServiceRole",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/ImportServiceRole",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.Resource",
                               "version": "2.85.0"
@@ -2485,7 +2796,7 @@
                           },
                           "Resource": {
                             "id": "Resource",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                               "aws:cdk:cloudformation:props": {
@@ -2524,11 +2835,11 @@
                           },
                           "DefaultPolicy": {
                             "id": "DefaultPolicy",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource",
+                                "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                                   "aws:cdk:cloudformation:props": {
@@ -2591,20 +2902,14 @@
                                           "Effect": "Allow",
                                           "Resource": [
                                             {
-                                              "Fn::GetAtt": [
-                                                "HostingBucket5DAC2127",
-                                                "Arn"
-                                              ]
+                                              "Fn::ImportValue": "StaticSiteStage-StaticSiteStack:ExportsOutputFnGetAttHostingBucket5DAC2127Arn188DB06A"
                                             },
                                             {
                                               "Fn::Join": [
                                                 "",
                                                 [
                                                   {
-                                                    "Fn::GetAtt": [
-                                                      "HostingBucket5DAC2127",
-                                                      "Arn"
-                                                    ]
+                                                    "Fn::ImportValue": "StaticSiteStage-StaticSiteStack:ExportsOutputFnGetAttHostingBucket5DAC2127Arn188DB06A"
                                                   },
                                                   "/*"
                                                 ]
@@ -2650,11 +2955,11 @@
                       },
                       "Code": {
                         "id": "Code",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
                         "children": {
                           "Stage": {
                             "id": "Stage",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/Stage",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/Stage",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.AssetStaging",
                               "version": "2.85.0"
@@ -2662,7 +2967,7 @@
                           },
                           "AssetBucket": {
                             "id": "AssetBucket",
-                            "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket",
+                            "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket",
                             "constructInfo": {
                               "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                               "version": "2.85.0"
@@ -2676,7 +2981,7 @@
                       },
                       "Resource": {
                         "id": "Resource",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                           "aws:cdk:cloudformation:props": {
@@ -2718,37 +3023,13 @@
                       "version": "2.85.0"
                     }
                   },
-                  "s3BucketOutput": {
-                    "id": "s3BucketOutput",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/s3BucketOutput",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.CfnOutput",
-                      "version": "2.85.0"
-                    }
-                  },
-                  "s3BucketDomainOutput": {
-                    "id": "s3BucketDomainOutput",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/s3BucketDomainOutput",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.CfnOutput",
-                      "version": "2.85.0"
-                    }
-                  },
-                  "cfDistOutput": {
-                    "id": "cfDistOutput",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/cfDistOutput",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.CfnOutput",
-                      "version": "2.85.0"
-                    }
-                  },
                   "CDKMetadata": {
                     "id": "CDKMetadata",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/CDKMetadata",
+                    "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/CDKMetadata",
                     "children": {
                       "Default": {
                         "id": "Default",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/CDKMetadata/Default",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/CDKMetadata/Default",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.CfnResource",
                           "version": "2.85.0"
@@ -2756,7 +3037,7 @@
                       },
                       "Condition": {
                         "id": "Condition",
-                        "path": "PipelineStack/StaticSiteStage/StaticSite/CDKMetadata/Condition",
+                        "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/CDKMetadata/Condition",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.CfnCondition",
                           "version": "2.85.0"
@@ -2770,7 +3051,7 @@
                   },
                   "BootstrapVersion": {
                     "id": "BootstrapVersion",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/BootstrapVersion",
+                    "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/BootstrapVersion",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnParameter",
                       "version": "2.85.0"
@@ -2778,7 +3059,7 @@
                   },
                   "CheckBootstrapVersion": {
                     "id": "CheckBootstrapVersion",
-                    "path": "PipelineStack/StaticSiteStage/StaticSite/CheckBootstrapVersion",
+                    "path": "PipelineStack/StaticSiteStage/DeployStaticSiteStack/CheckBootstrapVersion",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnRule",
                       "version": "2.85.0"

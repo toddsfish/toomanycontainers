@@ -1,0 +1,371 @@
+digraph "Diagram" {
+  splines = "ortho";
+  pad = "1.0";
+  nodesep = "0.60";
+  ranksep = "0.75";
+  fontname = "Sans-Serif";
+  fontsize = "15";
+  dpi = "200";
+  rankdir = "BT";
+  compound = "true";
+  fontcolor = "#222222";
+  edge [
+    color = "#D5871488",
+    penwidth = 2,
+    arrowhead = "dot",
+    arrowtail = "dot",
+  ];
+  node [
+    shape = "box",
+    style = "rounded",
+    fixedsize = true,
+    width = 1.7,
+    height = 1.7,
+    labelloc = "c",
+    imagescale = true,
+    fontname = "Sans-Serif",
+    fontsize = 8,
+    margin = 8,
+  ];
+  subgraph "PipelineStack" {
+    subgraph "cluster-SubGraph.PipelineStack" {
+      graph [
+        label = "PipelineStack",
+        labelloc = "b",
+        labeljust = "l",
+        margin = "10",
+        fontsize = "16",
+        penwidth = "2",
+        pencolor = "#888888",
+        style = "filled,rounded",
+        fillcolor = "#e4e4e4",
+      ];
+      subgraph "cluster-SubGraph.Pipeline" {
+        graph [
+          label = "Pipeline",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        "PipelineStack/Pipeline/Pipeline" [
+          label = " Pipeline",
+          fontsize = 12,
+          image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_AWS-CodePipeline_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "PipelineStack/Pipeline/CodeBuildActionRole" [
+          label = " CodeBuildActionRole",
+          fontsize = 12,
+          image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "PipelineStack/Pipeline/UpdatePipeline/SelfMutation" [
+          label = " SelfMutation",
+          fontsize = 12,
+          image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        subgraph "cluster-SubGraph.Assets" {
+          graph [
+            label = "Assets",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#c7c7c7",
+          ];
+          "PipelineStack/Pipeline/Assets/FileRole" [
+            label = " FileRole",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.466,
+          ];
+          "PipelineStack/Pipeline/Assets/FileAsset1" [
+            label = " FileAsset1",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.466,
+          ];
+          "PipelineStack/Pipeline/Assets/FileAsset2" [
+            label = " FileAsset2",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.466,
+          ];
+          "PipelineStack/Pipeline/Assets/FileAsset3" [
+            label = " FileAsset3",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.466,
+          ];
+          "PipelineStack/Pipeline/Assets/FileAsset4" [
+            label = " FileAsset4",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Developer- Tools/64/Arch_Amazon-CodeBuild_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 1.2,
+            height = 1.466,
+          ];
+        }
+      }
+      subgraph "cluster-SubGraph.StaticSiteStage" {
+        graph [
+          label = "StaticSiteStage",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#d6d6d6",
+        ];
+        subgraph "cluster-SubGraph.StaticSiteStack" {
+          graph [
+            label = "StaticSiteStack",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#c7c7c7",
+          ];
+          "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket" [
+            label = " HostingBucket",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-S3-Standard_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+          "PipelineStack/StaticSiteStage/StaticSiteStack/cfOai" [
+            label = " cfOai",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Resource/Res_Security-Identity-and-Compliance/Res_48_Dark/Res_AWS-Identity-Access-Management_Permissions_48_Dark_gen.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+          "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist" [
+            label = " CloudfrontDist",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Networking-Content/64/Arch_Amazon-CloudFront_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+        }
+        subgraph "cluster-SubGraph.DeployStaticSiteStack" {
+          graph [
+            label = "DeployStaticSiteStack",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#c7c7c7",
+          ];
+          "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom__CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C" [
+            label = " Custom \nCDKBucketDeployment86",
+            fontsize = 12,
+            image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.4819999999999998,
+          ];
+          subgraph "cluster-SubGraph.DeploySite" {
+            graph [
+              label = "DeploySite",
+              labelloc = "b",
+              labeljust = "l",
+              margin = "10",
+              fontsize = "16",
+              penwidth = "2",
+              pencolor = "#888888",
+              style = "filled,rounded",
+              fillcolor = "#b9b9b9",
+            ];
+            "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer" [
+              label = " AwsCliLayer",
+              fontsize = 12,
+              image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+              imagescale = "true",
+              imagepos = "tc",
+              penwidth = "0",
+              shape = "node",
+              fixedsize = "true",
+              labelloc = "b",
+              width = 2,
+              height = 2.266,
+            ];
+            "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/CustomResource" [
+              label = " CloudFormation\nCustomResource\nCustomResource",
+              fontsize = 12,
+              image = "/home/bry/.npm/_npx/b98735c91b702b55/node_modules/cdk-dia/icons/aws/Service/Arch_Management-Governance/64/Arch_AWS-CloudFormation_64@5x.png",
+              imagescale = "true",
+              imagepos = "tc",
+              penwidth = "0",
+              shape = "node",
+              fixedsize = "true",
+              labelloc = "b",
+              width = 1.2,
+              height = 1.898,
+            ];
+          }
+        }
+      }
+    }
+  }
+  "PipelineStack/Pipeline/Pipeline" -> "PipelineStack/Pipeline/CodeBuildActionRole" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Pipeline" -> "PipelineStack/Pipeline/UpdatePipeline/SelfMutation" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Pipeline" -> "PipelineStack/Pipeline/Assets/FileAsset1" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Pipeline" -> "PipelineStack/Pipeline/Assets/FileAsset2" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Pipeline" -> "PipelineStack/Pipeline/Assets/FileAsset3" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Pipeline" -> "PipelineStack/Pipeline/Assets/FileAsset4" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/CodeBuildActionRole" -> "PipelineStack/Pipeline/Pipeline" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/CodeBuildActionRole" -> "PipelineStack/Pipeline/UpdatePipeline/SelfMutation" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/CodeBuildActionRole" -> "PipelineStack/Pipeline/Assets/FileAsset1" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/CodeBuildActionRole" -> "PipelineStack/Pipeline/Assets/FileAsset2" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/CodeBuildActionRole" -> "PipelineStack/Pipeline/Assets/FileAsset3" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/CodeBuildActionRole" -> "PipelineStack/Pipeline/Assets/FileAsset4" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Assets/FileRole" -> "PipelineStack/Pipeline/Pipeline" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Assets/FileAsset1" -> "PipelineStack/Pipeline/Assets/FileRole" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Assets/FileAsset2" -> "PipelineStack/Pipeline/Assets/FileRole" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Assets/FileAsset3" -> "PipelineStack/Pipeline/Assets/FileRole" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/Assets/FileAsset4" -> "PipelineStack/Pipeline/Assets/FileRole" [
+    dir = "both",
+  ];
+  "PipelineStack/Pipeline/UpdatePipeline/SelfMutation" -> "PipelineStack/Pipeline/Pipeline" [
+    dir = "both",
+  ];
+  "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket" -> "PipelineStack/StaticSiteStage/StaticSiteStack/cfOai" [
+    dir = "both",
+  ];
+  "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket" -> "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist" [
+    dir = "both",
+  ];
+  "PipelineStack/StaticSiteStage/StaticSiteStack/CloudfrontDist" -> "PipelineStack/StaticSiteStage/StaticSiteStack/HostingBucket" [
+    dir = "both",
+  ];
+  "PipelineStack/StaticSiteStage/DeployStaticSiteStack/Custom__CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C" -> "PipelineStack/StaticSiteStage/DeployStaticSiteStack/DeploySite/AwsCliLayer" [
+    dir = "both",
+  ];
+}

@@ -494,7 +494,7 @@
          "Version": "1"
         },
         "Configuration": {
-         "StackName": "StaticSiteStage-StaticSite",
+         "StackName": "StaticSiteStage-StaticSiteStack",
          "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
          "RoleArn": {
           "Fn::Join": [
@@ -521,14 +521,14 @@
          },
          "ActionMode": "CHANGE_SET_REPLACE",
          "ChangeSetName": "PipelineChange",
-         "TemplatePath": "SynthStep_Output::assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.template.json"
+         "TemplatePath": "SynthStep_Output::assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSiteStack40594E39.template.json"
         },
         "InputArtifacts": [
          {
           "Name": "SynthStep_Output"
          }
         ],
-        "Name": "Prepare",
+        "Name": "StaticSiteStack.Prepare",
         "RoleArn": {
          "Fn::Join": [
           "",
@@ -562,11 +562,11 @@
          "Version": "1"
         },
         "Configuration": {
-         "StackName": "StaticSiteStage-StaticSite",
+         "StackName": "StaticSiteStage-StaticSiteStack",
          "ActionMode": "CHANGE_SET_EXECUTE",
          "ChangeSetName": "PipelineChange"
         },
-        "Name": "Deploy",
+        "Name": "StaticSiteStack.Deploy",
         "RoleArn": {
          "Fn::Join": [
           "",
@@ -591,6 +591,112 @@
          ]
         },
         "RunOrder": 2
+       },
+       {
+        "ActionTypeId": {
+         "Category": "Deploy",
+         "Owner": "AWS",
+         "Provider": "CloudFormation",
+         "Version": "1"
+        },
+        "Configuration": {
+         "StackName": "StaticSiteStage-DeployStaticSiteStack",
+         "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+         "RoleArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":iam::",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":role/cdk-hnb659fds-cfn-exec-role-",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            "-",
+            {
+             "Ref": "AWS::Region"
+            }
+           ]
+          ]
+         },
+         "ActionMode": "CHANGE_SET_REPLACE",
+         "ChangeSetName": "PipelineChange",
+         "TemplatePath": "SynthStep_Output::assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.template.json"
+        },
+        "InputArtifacts": [
+         {
+          "Name": "SynthStep_Output"
+         }
+        ],
+        "Name": "DeployStaticSiteStack.Prepare",
+        "RoleArn": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":role/cdk-hnb659fds-deploy-role-",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           "-",
+           {
+            "Ref": "AWS::Region"
+           }
+          ]
+         ]
+        },
+        "RunOrder": 3
+       },
+       {
+        "ActionTypeId": {
+         "Category": "Deploy",
+         "Owner": "AWS",
+         "Provider": "CloudFormation",
+         "Version": "1"
+        },
+        "Configuration": {
+         "StackName": "StaticSiteStage-DeployStaticSiteStack",
+         "ActionMode": "CHANGE_SET_EXECUTE",
+         "ChangeSetName": "PipelineChange"
+        },
+        "Name": "DeployStaticSiteStack.Deploy",
+        "RoleArn": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":role/cdk-hnb659fds-deploy-role-",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           "-",
+           {
+            "Ref": "AWS::Region"
+           }
+          ]
+         ]
+        },
+        "RunOrder": 4
        }
       ],
       "Name": "StaticSiteStage"
@@ -622,7 +728,18 @@
        "Action": "sts:AssumeRole",
        "Effect": "Allow",
        "Principal": {
-        "AWS": "arn:aws:iam::302766791300:root"
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:iam::",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":root"
+          ]
+         ]
+        }
        }
       }
      ],
@@ -752,7 +869,11 @@
          "Fn::Join": [
           "",
           [
-           "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+           "arn:aws:logs:ap-southeast-2:",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":log-group:/aws/codebuild/",
            {
             "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
            },
@@ -764,7 +885,11 @@
          "Fn::Join": [
           "",
           [
-           "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+           "arn:aws:logs:ap-southeast-2:",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":log-group:/aws/codebuild/",
            {
             "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
            }
@@ -786,7 +911,11 @@
         "Fn::Join": [
          "",
          [
-          "arn:aws:codebuild:ap-southeast-2:302766791300:report-group/",
+          "arn:aws:codebuild:ap-southeast-2:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":report-group/",
           {
            "Ref": "PipelineBuildSynthStepCdkBuildProject7FBB5116"
           },
@@ -1006,7 +1135,11 @@
          "Fn::Join": [
           "",
           [
-           "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+           "arn:aws:logs:ap-southeast-2:",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":log-group:/aws/codebuild/",
            {
             "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
            },
@@ -1018,7 +1151,11 @@
          "Fn::Join": [
           "",
           [
-           "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/",
+           "arn:aws:logs:ap-southeast-2:",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":log-group:/aws/codebuild/",
            {
             "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
            }
@@ -1040,7 +1177,11 @@
         "Fn::Join": [
          "",
          [
-          "arn:aws:codebuild:ap-southeast-2:302766791300:report-group/",
+          "arn:aws:codebuild:ap-southeast-2:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":report-group/",
           {
            "Ref": "PipelineUpdatePipelineSelfMutationDAA41400"
           },
@@ -1061,7 +1202,18 @@
         }
        },
        "Effect": "Allow",
-       "Resource": "arn:*:iam::302766791300:role/*"
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:*:iam::",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":role/*"
+         ]
+        ]
+       }
       },
       {
        "Action": [
@@ -1158,7 +1310,18 @@
        "Action": "sts:AssumeRole",
        "Effect": "Allow",
        "Principal": {
-        "AWS": "arn:aws:iam::302766791300:root",
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:iam::",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":root"
+          ]
+         ]
+        },
         "Service": "codebuild.amazonaws.com"
        }
       }
@@ -1182,7 +1345,18 @@
         "logs:PutLogEvents"
        ],
        "Effect": "Allow",
-       "Resource": "arn:aws:logs:ap-southeast-2:302766791300:log-group:/aws/codebuild/*"
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:logs:ap-southeast-2:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":log-group:/aws/codebuild/*"
+         ]
+        ]
+       }
       },
       {
        "Action": [
@@ -1193,7 +1367,18 @@
         "codebuild:UpdateReport"
        ],
        "Effect": "Allow",
-       "Resource": "arn:aws:codebuild:ap-southeast-2:302766791300:report-group/*"
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:codebuild:ap-southeast-2:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":report-group/*"
+         ]
+        ]
+       }
       },
       {
        "Action": [
@@ -1275,7 +1460,7 @@
      ]
     },
     "Source": {
-     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSiteStack40594E39.assets.json\\\" --verbose publish \\\"64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
      "Type": "CODEPIPELINE"
     },
     "Cache": {
@@ -1308,7 +1493,7 @@
      ]
     },
     "Source": {
-     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"f8e422c63159c82c409e8254300a3134e020892c27382902d4c8c0a5b35d0a06:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.assets.json\\\" --verbose publish \\\"f8e422c63159c82c409e8254300a3134e020892c27382902d4c8c0a5b35d0a06:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
      "Type": "CODEPIPELINE"
     },
     "Cache": {
@@ -1341,7 +1526,7 @@
      ]
     },
     "Source": {
-     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.assets.json\\\" --verbose publish \\\"9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
      "Type": "CODEPIPELINE"
     },
     "Cache": {
@@ -1374,7 +1559,7 @@
      ]
     },
     "Source": {
-     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageStaticSite508D00FD.assets.json\\\" --verbose publish \\\"e8e61db5512c4b1ab2937ea5198f8617b57ed5d22d498796f1e5efa67b49b30a:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
+     "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets@2\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-PipelineStack-StaticSiteStage/PipelineStackStaticSiteStageDeployStaticSiteStackDC6DA497.assets.json\\\" --verbose publish \\\"9411dbb5e0e529ac893033d2c6f4fa5ac495c3f306adf46bc24236e493e00d21:current_account-current_region\\\"\"\n      ]\n    }\n  }\n}",
      "Type": "CODEPIPELINE"
     },
     "Cache": {
@@ -1390,7 +1575,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0VP0Q6CMAz8Ft9HJRITn+UHCH6AgVKTwtgIYxqz7N8dbMjTXa/Xu/QCtyvkp+ZjMuyGTHIL7rE0OIiJJ5KsyECpO6rSJILz6TAo+x7cf1e+1M69MAW4u8WBllVPLEKlJeP3kOPsBTcjuFrLLWnDw7l71urWsuyO3mrWPeFWk6j3oiaj7YwxKnEvVLiG3pzflxyK8HdvmLPZqoVHgjriDz5DgFwTAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0VP0Q6CMAz8Ft9HJRgTn+UHCH6AgVKTwtgI2zRm2b8LbMjTXa/Xu7SA2xXyU/MxGXZDJrkF/7ANDmLiiSQrMlDqjqo0icX59Lgo+x78f1e+1M6DMBfwd4cD2VVPLEKlJeP3kOMcBDcj+FrLLWnDw7l71urWseyO3mrWPeFWk2gIoiaj3YwxKvEg1HINvTm/ixzWv3vDnM1OWR4J6og/bhG97BMBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "PipelineStack/CDKMetadata/Default"

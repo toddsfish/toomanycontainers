@@ -1,0 +1,32 @@
+{
+  "version": "32.0.0",
+  "files": {
+    "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26": {
+      "source": {
+        "path": "../asset.64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "64267bdade6530c78c99e1df05c9336e81c8dad82fdb06133ee90f7390f69d26.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "5c702e3183e5cf2e0f27b3ce3b9d39404fb1c0ba53f14214dd07bdd019a4e982": {
+      "source": {
+        "path": "PipelineStackStaticSiteStageStaticSiteStack40594E39.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "5c702e3183e5cf2e0f27b3ce3b9d39404fb1c0ba53f14214dd07bdd019a4e982.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
